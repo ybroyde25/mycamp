@@ -55,10 +55,11 @@ router.get("/campgrounds/:id", function(req, res){
         }
     });
 });
-
+//edit
 router.get("/campgrounds/:id/edit",middleWare.checkCampgroundOwnership, function(req, res){
   Campground.findById(req.params.id, function(err, foundCampground){
       res.render("campgrounds/edit", {campground: foundCampground});
+      
  });
 });  
 
