@@ -6,25 +6,32 @@ var express     = require("express"),
     Comment     = require("./models/comment"),
   //  seedDB      = require("./seeds"),
      User       = require("./models/user"),
-   flash        = require("connect-flash"),
+     flash      = require("connect-flash"),
+     cookieParser = require("cookie-parser"),
    passport     = require("passport"),
  LocalStrategy  = require("passport-local"),
  methodOverride = require("method-override");
 // passportLocalMongoose=require("passport-local-mongoose");
+require('dotenv').load();
  
  var commentRoutes   = require("./routes/comments"),
      campgroundRoutes= require("./routes/campgrounds"),
      indexRoutes     = require("./routes/index");
-
- //var url = process.env.DATABASEURL || mongoose.connect "mongodb://localhost/yelp_camp-v11"
- mongoose.connect(process.env.DATABASEURL);
- //mongoose.connect("mongodb://localhost/yelp_camp-v11");
- console.log(process.env.DATABASEURL);
+//mongoose.connect("mongodb://ybroyde:33rockefeller@ds123752.mlab.com:23752/ybroyde/my_camp_v8");
+ var url = process.env.DATABASEURL || mongoose.connect "mongodb://localhost/yelp_camp-v11"
+ //mongoose.connect(process.env.DATABASEURL);
+ mongoose.Promise = global.Promise;
+// mongoose.connect("mongodb://localhost/yelp_camp-v11");
+ 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(flash());
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
 app.set("view engine", "ejs");
+//app.use(cookieParser('secret'));
+//require moment
+app.locals.moment = require('moment');
+
 //seedDB();
 
 app.use(require("express-session")({
@@ -51,6 +58,6 @@ app.use(commentRoutes);
     
 
 
-app.listen(process.env.PORT,process.env.IP, function(){
+app.listen(3000/*process.env.PORT,process.env.IP*/, function(){
    console.log("MyCamp Server Has Started..");
 });
