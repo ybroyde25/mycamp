@@ -21,7 +21,7 @@ require('dotenv').load();
 // var url = process.env.DATABASEURL || mongoose.connect "mongodb://localhost/yelp_camp-v11"
  mongoose.connect(process.env.DATABASEURL);
  mongoose.Promise = global.Promise;
- //mongoose.connect("mongodb://localhost/yelp_camp-v11");
+// mongoose.connect("mongodb://localhost/yelp_camp-v11");
  
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(flash());
@@ -56,7 +56,10 @@ app.use(indexRoutes);
 app.use(campgroundRoutes);
 app.use(commentRoutes);
     
-
+app.use(function(req, res) {
+    res.status(400);
+    res.render("error");
+});
 
 app.listen(process.env.PORT,process.env.IP, function(){
    console.log("MyCamp Server Has Started..");
